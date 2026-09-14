@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+@theme {
+  /* A reading-room palette, not a SaaS-dashboard one: paper and ink
+     for the document-like reading surface, a single trust-green
+     accent, and two distinct severity colors that don't rely on a
+     generic red/yellow/green traffic light. */
+  --color-ink: #1c2b33;
+  --color-ink-soft: #445059;
+  --color-paper: #f7f5f0;
+  --color-paper-raised: #ffffff;
+  --color-trust: #2f5d50;
+  --color-trust-soft: #e4ede9;
+  --color-caution: #b5651d;
+  --color-caution-soft: #f6e9dc;
+  --color-alert: #8b2e2e;
+  --color-alert-soft: #f5e3e1;
+  --color-muted: #8a8578;
+  --color-border: #e3ddd0;
+
+  /* System-font stacks, deliberately not next/font/google: a build
+     that has to reach fonts.googleapis.com to compile is a build that
+     breaks behind a restrictive corporate/government proxy — a real
+     concern for the "MNC and govt" bar this project is aiming for,
+     not just a hackathon nicety. This also removes all web-font
+     network requests and font-swap layout shift at runtime. */
+  --font-display: ui-serif, Georgia, "Times New Roman", serif;
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    color-scheme: light;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+  }
+
+  /* Visible keyboard focus everywhere, including inside components
+     copied from Radix — this is the exact category of miss flagged
+     in an earlier PromptWars round. */
+  :focus-visible {
+    outline: 2px solid var(--color-trust);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}

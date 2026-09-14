@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  verify:
+    name: Lint, typecheck, and unit test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Type check
+        run: npm run typecheck
+
+      - name: Unit tests
+        run: npm run test
+
+      - name: Build
+        run: npm run build
+        env:
+          # A placeholder is enough for the build step: Next.js only
+          # needs the module to resolve at build time, and the AI SDK
+          # client doesn't make a network call until a request handler
+          # actually runs. Real analysis requests still need a real
+          # key set in Vercel's project environment variables.
+          GOOGLE_GENERATIVE_AI_API_KEY: "build-placeholder"
