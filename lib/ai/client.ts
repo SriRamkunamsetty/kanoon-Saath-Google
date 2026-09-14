@@ -7,7 +7,7 @@ import { createGoogleGenerativeAI } from "@ai-sdk/google";
  * edit. Before deploying, confirm the current recommended flash and
  * embedding model names at https://ai.google.dev/gemini-api/docs/models.
  */
-const DEFAULT_TEXT_MODEL = "gemini-3.8-flash";
+const DEFAULT_TEXT_MODEL = "gemini-2.5-flash";
 const DEFAULT_EMBEDDING_MODEL = "gemini-embedding-001";
 
 if (!process.env.GOOGLE_GENERATIVE_AI_API_KEY) {
